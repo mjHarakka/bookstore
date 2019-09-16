@@ -4,11 +4,11 @@
         <meta charset="UTF-8" />
         <title th:text="${title}">Otsikko</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
     </head>
     <body>
    
-    <h2>Books</h2>
+    <h2>Edit book</h2>
     
     <table class="table table-striped">
       <tr>
@@ -16,29 +16,26 @@
         <th>Title</th>
         <th>ISBN</th>
         <th>Year</th>
-        <th></th>
-        <th></th>
+        <th>Price</th>
       </tr>
-      <tr th:each="book:${books}">
+      <tr>
         <td th:text="${book.author}"></td>
         <td th:text="${book.title}"></td>
         <td th:text="${book.isbn}"></td>
         <td th:text="${book.year}"></td>
-        <td>
-        <form th:action="@{/listbooks/{id}(id=${book.id})}">
-         <button class="btn btn-danger" type="submit">Delete</button>
-    	</form>
-        </td>
-        <td>
-        <form th:action="@{/edit/{id}(id=${book.id})}">
-         <button class="btn btn-danger" type="submit">Edit</button>
-    	</form>
-      </td>
+        <td th:text="${book.price}"></td>
      
       </tr>
     </table>
-  	<form action="/addbook" method="get">
-         <button type="submit">Add book</button>
+    
+    <form th:action="@{/edit/{id}(id=${book.id})}" method="POST">
+                Author: <input type="text" name="author" id="author"/><br/>
+                Title <input type="text" name="title" id="title"/><br/>
+                Year: <input type="text" name="year" id="year"/><br/>
+                ISBN: <input type="text" name="isbn" id="isbn"/><br/>
+                Price: <input type="text" name="price" id="price"/><br/>
+                <input type="submit"/>            
     </form>
+
     </body>
 </html>
