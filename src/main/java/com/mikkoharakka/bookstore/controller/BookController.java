@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mikkoharakka.bookstore.model.Book;
 import com.mikkoharakka.bookstore.repository.BookRepository;
+import com.mikkoharakka.bookstore.repository.CategoryRepository;
 
 
 @Controller
@@ -17,18 +18,22 @@ public class BookController {
 	
 	@Autowired
 	private BookRepository bookRepository;
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@GetMapping("/addbook")
-	public String addBook() {
+	public String getAddBook(Model model) {
+		model.addAttribute("categories", categoryRepository.findAll());
 		return "addbook";
 	}
 	
 	@PostMapping("/addbook")
-    public String assignAirport(@RequestParam String author,
+    public String postAddBook(@RequestParam String author,
     		@RequestParam String title,
     		@RequestParam int year,
     		@RequestParam String isbn,
-    		@RequestParam double price) {
+    		@RequestParam double price,
+    		@RequestParam long categoryId) {
     
 	Book b = new Book();
 	b.setAuthor(author);
@@ -36,6 +41,7 @@ public class BookController {
 	b.setTitle(title);
 	b.setPrice(price);
 	b.setYear(year);
+	b.setCategory(categoryRepository.getOne(categoryId));
     
 	bookRepository.save(b);
     
@@ -67,7 +73,7 @@ public class BookController {
 		bookRepository.deleteById(id);
 		bookRepository.save(b);
 		
-		return "redirect:/";
+		return "redirect:/listbooks";
 	}
 	
 	@GetMapping("/listbooks/{id}")

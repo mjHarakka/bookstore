@@ -16,6 +16,16 @@
                 Year: <input type="text" name="year" id="year"/><br/>
                 ISBN: <input type="text" name="isbn" id="isbn"/><br/>
                 Price: <input type="text" name="price" id="price"/><br/>
+                	
+                <div class="form-group row">
+				    <select class="form-control" id="categoryId" name="categoryId">
+				        <option th:each="category : ${categories}"
+				                th:value="${category.id}"
+				                th:text="${category.name}"
+				                th:selected="${category.id}"/>
+				    </select>
+				</div>
+                
                 <input type="submit"/>            
     </form>
 

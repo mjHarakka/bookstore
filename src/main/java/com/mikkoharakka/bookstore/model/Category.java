@@ -1,7 +1,9 @@
 package com.mikkoharakka.bookstore.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -13,14 +15,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Book extends AbstractPersistable<Long> {
+public class Category extends AbstractPersistable<Long> {
 	
-	private String title;
-	private String author;
-	private int year;
-	private String isbn;
-	private double price;
-	@ManyToOne
-	private Category category;
+	private String name;
+	@OneToMany(mappedBy = "category")
+	private List<Book> books;
+	
 
 }
