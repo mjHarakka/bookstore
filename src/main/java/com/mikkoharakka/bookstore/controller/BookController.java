@@ -93,17 +93,11 @@ public class BookController {
 	}
 	
 	
-	@DeleteMapping("/delete/{id}")
-    @ResponseBody
-    public String deleteItem(@PathVariable long id){
-	 	bookRepository.deleteById(id);
-        return "redirect:/listbooks";
-    }
-	
+
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ADMIN')")
-	public String deleteStudent(@PathVariable("id") Long id, Model
-	model) { bookRepository.deleteById(id); return "redirect:../studentlist";
+	public String deleteBook(@PathVariable("id") Long id, Model
+	model) { bookRepository.deleteById(id); return "redirect:../listbooks";
 	}
 	
 	/*
