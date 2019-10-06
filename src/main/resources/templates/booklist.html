@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head th:fragment="head(title)" lang="en">
         <meta charset="UTF-8" />
         <title th:text="${title}">Otsikko</title>
@@ -9,7 +11,7 @@
     <body>
    
     <h2>Books</h2>
-    
+    <div sec:authorize="isAuthenticated()">Authenticated as <span sec:authentication="name"></span></div>
     <table class="table table-striped">
       <tr>
         <th>Author</th>
@@ -40,5 +42,9 @@
   	<form action="/addbook" method="get">
          <button type="submit">Add book</button>
     </form>
+	<br />
+    <form action="/logout">
+         <button class="btn btn-danger" type="submit">Logout</button>
+    	</form>
     </body>
 </html>
